@@ -36,17 +36,17 @@ jobs:
       - name: Collect files
         run: |
           mkdir -p ./publish
-          curl -sSL $GEOIP_URL > ./publish/geoip.dat
-          curl -sSL $GEOIP_URL.sha256sum > ./publish/geoip.dat.sha256sum
+          curl -sSL $GEOIP_URL > ./publish/geoip_ru.dat
+          curl -sSL $GEOIP_URL.sha256sum > ./publish/geoip_ru.dat.sha256sum
           
-          curl -sSL $GEOSITE_URL > ./publish/geosite.dat
-          curl -sSL $GEOSITE_URL.sha256sum > ./publish/geosite.dat.sha256sum
+          curl -sSL $GEOSITE_URL > ./publish/geosite_ru.dat
+          curl -sSL $GEOSITE_URL.sha256sum > ./publish/geosite_ru.dat.sha256sum
 
       - name: Generate sing-box srs
         run: |
           go build -C geodat2srs ./
-          ./geodat2srs/geodat2srs geoip -i ./publish/geoip.dat -o ./tmp/sing-box/rule-set-geoip/
-          ./geodat2srs/geodat2srs geosite -i ./publish/geosite.dat -o ./tmp/sing-box/rule-set-geosite/
+          ./geodat2srs/geodat2srs geoip -i ./publish/geoip_ru.dat -o ./tmp/sing-box/rule-set-geoip/
+          ./geodat2srs/geodat2srs geosite -i ./publish/geosite_ru.dat -o ./tmp/sing-box/rule-set-geosite/
           cd ./tmp/sing-box || exit 1
           zip -r ../../publish/sing-box.zip *
 
